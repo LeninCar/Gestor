@@ -34,7 +34,7 @@ describe('App', () => {
     render(<App />);
     const repoLink = screen.getByText('Nuestro repo');
     expect(repoLink).toBeInTheDocument();
-    expect(repoLink.href).toBe('https://github.com/LeninCar/pruebagestor');
+    expect(repoLink.href).toBe('https://github.com/LeninCar/Gestor');
     expect(repoLink.target).toBe('_blank');
   });
 });
