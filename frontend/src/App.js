@@ -16,7 +16,7 @@ function App() {
         </div>
         <a
           className="App-link"
-          href="https://github.com/LeninCar/pruebagestor"
+          href="https://github.com/LeninCar/Gestor"
           target="_blank"
           rel="noopener noreferrer"
         >
