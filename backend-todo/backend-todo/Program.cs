@@ -2,8 +2,10 @@ using backend_todo.Context;
 using backend_todo.Interface;
 using backend_todo.Mapping;
 using backend_todo.Middleware;
+using backend_todo.Models;
 using backend_todo.Repositories;
 using backend_todo.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -29,6 +31,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddIdentityApiEndpoints<ApplicationUser>()
+    .AddEntityFrameworkStores<TareasDbContext>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -39,6 +44,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapGroup("/itentity").MapIdentityApi<ApplicationUser>();
 
 app.UseAuthorization();
 
