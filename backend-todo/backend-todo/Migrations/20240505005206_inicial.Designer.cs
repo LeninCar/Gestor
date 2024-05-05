@@ -12,8 +12,8 @@ using backend_todo.Context;
 namespace backend_todo.Migrations
 {
     [DbContext(typeof(TareasDbContext))]
-    [Migration("20240504222118_NuevaMigracion")]
-    partial class NuevaMigracion
+    [Migration("20240505005206_inicial")]
+    partial class inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

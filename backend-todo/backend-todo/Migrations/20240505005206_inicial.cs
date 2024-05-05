@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace backend_todo.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -59,7 +59,7 @@ namespace backend_todo.Migrations
                     Nombre = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     FechaCreacion = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreadoPor = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FechaModificacion = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaModificacion = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ActualizadoPor = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -182,11 +182,11 @@ namespace backend_todo.Migrations
                     Titulo = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FechaFinalizacion = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Estado = table.Column<int>(type: "int", nullable: false),
+                    Estado = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CategoriaId = table.Column<int>(type: "int", nullable: false),
                     FechaCreacion = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreadoPor = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FechaModificacion = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaModificacion = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ActualizadoPor = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
