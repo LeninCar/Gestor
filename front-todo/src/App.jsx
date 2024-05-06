@@ -3,8 +3,22 @@ import './App.css';
 import { TodoAdd } from './components/TodoAdd';
 import { TodoList } from './components/TodoList';
 import { useTodo } from './hooks/useTodo';
-
+import Login from './login/Login';
+import task from "./services/task";
+import { useState, useEffect } from 'react';
 function App() {
+  const serviceTasks=new task()
+  const [dataTask, setDataTask] = useState([])
+  useEffect(() => {
+    async function fetchData() {
+      await serviceTasks.getTareas().then((data) => {
+        setDataTask(data);
+        console.log(data);
+      });
+    }
+
+    fetchData();
+  }, []);
   const {
     todos,
     todosCount,
@@ -22,7 +36,7 @@ function App() {
           path="/"
           element={
             <TodoApp
-              todos={todos}
+              todos={dataTask}
               todosCount={todosCount}
               pendingTodosCount={pendingTodosCount}
               handleNewTodo={handleNewTodo}
@@ -31,7 +45,10 @@ function App() {
               handleUpdateTodo={handleUpdateTodo}
             />
           }
+
+
         />
+        <Route path='/login'element={<Login/>}> </Route>
       </Routes>
     </Router>
   );
