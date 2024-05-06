@@ -18,7 +18,19 @@ function App() {
     }
 
     fetchData();
-  }, []);
+  }
+  , []);
+  function Table(data){
+    return dataTask.map((data,index) =>{
+    <tr key={index}>
+            <td>{index}</td>
+            <td>{data.categoriaNombre}</td>
+            <td>{data.descripcion}</td>
+            <td>{data.estado}</td>
+    </tr>
+    })
+  
+    }
   const {
     todos,
     todosCount,
@@ -45,9 +57,11 @@ function App() {
               handleUpdateTodo={handleUpdateTodo}
             />
           }
+          
 
 
         />
+        
         <Route path='/login'element={<Login/>}> </Route>
       </Routes>
     </Router>
