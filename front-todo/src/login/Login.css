@@ -1,0 +1,109 @@
+div{
+  flex: content;
+  justify-content: center;
+}
+.form-information {
+  margin-top: 5%;
+  height: 70vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #f8f8f8;
+  border-radius: 30px;
+  margin-bottom: 20px;
+}
+
+.form-information-childs {
+  padding: 0 50px; /* Aumenté el padding para mayor espacio */
+}
+
+.form-information-childs h2 {
+  color: #3626db;
+  font-size: 3.5rem; /* Aumenté el tamaño de la fuente *
+}
+
+.form-information-childs p {
+  color: #444;
+  font-size: 1.2rem; /* Aumenté el tamaño de la fuente */
+}
+
+.form {
+  margin: 30px 5px 0 0;
+}
+
+.form label {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 20px; /* Aumenté el espacio entre etiquetas */
+  border-radius: 20px; /* Aumenté el radio de borde */
+  padding: 0 20px; /* Aumenté el padding */
+  background-image: linear-gradient(to left, #3626db, #2d20b7);
+  box-shadow: 0 1px 2px #3626db;
+}
+
+.form label input {
+  width: 100%;
+  height: 100%;
+  margin-left: 10px;
+  margin-right: 0;
+  padding: 15px; /* Aumenté el padding */
+  background-color: #fff;
+  border-radius: 20px; /* Aumenté el radio de borde */
+  color: #333;
+  font-size: 1.2rem; /* Aumenté el tamaño de la fuente */
+  outline: none;
+}
+
+.form label svg {
+  color: #fff;
+  font-size: 1.5rem; /* Aumenté el tamaño de la fuente */
+}
+
+.form input[type="submit"] {
+  background-color: #3626db;
+  font-size: large;
+  width: 40%;
+  color: #fff;
+  border-radius: 20px; /* Aumenté el radio de borde */
+  border: none;
+  padding: 15px 20px; /* Aumenté el padding */
+  cursor: pointer;
+  margin-top: 20px; /* Aumenté el espacio superior */
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  margin-bottom: 30px; /* Aumenté el espacio inferior */
+}
+
+.form input[type="submit"]:hover {
+  background-color: black;
+}
+
+h2 {
+  font-weight: bold;
+  font-size: 4em; /* Aumenté el tamaño de la fuente */
+  margin-bottom: 30px; /* Aumenté el espacio inferior */
+  color: #3626db;
+}
+
+
+input{
+  border: none;
+
+}
+
+.R{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 10px;
+}
+
+div{
+  align-items: center;
+  display:flex;
+  flex-direction: column;
+}
