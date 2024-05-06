@@ -62,13 +62,15 @@ function TodoApp({
         <h3>Agregar Tarea</h3>
         <TodoAdd handleNewTodo={handleNewTodo} />
       </div>
+      <div className='list-todo'>
+        <TodoList
+          todos={todos}
+          handleUpdateTodo={handleUpdateTodo}
+          handleDeleteTodo={handleDeleteTodo}
+          handleCompleteTodo={handleCompleteTodo}
+        />
+      </div>
 
-      <TodoList
-        todos={todos}
-        handleUpdateTodo={handleUpdateTodo}
-        handleDeleteTodo={handleDeleteTodo}
-        handleCompleteTodo={handleCompleteTodo}
-      />
     </div>
   );
 }
