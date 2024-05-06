@@ -1,5 +1,5 @@
 div{
-  flex: content;
+  display: flex;
   justify-content: center;
 }
 .form-information {
@@ -17,20 +17,17 @@ div{
 
 .form-information-childs {
   padding: 0 50px; /* Aumenté el padding para mayor espacio */
+  display: flex;
 }
 
 .form-information-childs h2 {
   color: #3626db;
-  font-size: 3.5rem; /* Aumenté el tamaño de la fuente *
-}
-
-.form-information-childs p {
-  color: #444;
-  font-size: 1.2rem; /* Aumenté el tamaño de la fuente */
+  font-size: 3.5rem; /* Aumenté el tamaño de la fuente */
 }
 
 .form {
   margin: 30px 5px 0 0;
+  flex-direction: column;
 }
 
 .form label {
@@ -63,7 +60,7 @@ div{
   font-size: 1.5rem; /* Aumenté el tamaño de la fuente */
 }
 
-.form input[type="submit"] {
+.link {
   background-color: #3626db;
   font-size: large;
   width: 40%;
@@ -73,8 +70,9 @@ div{
   padding: 15px 20px; /* Aumenté el padding */
   cursor: pointer;
   margin-top: 20px; /* Aumenté el espacio superior */
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
   margin-bottom: 30px; /* Aumenté el espacio inferior */
+  align-self: center;
+  text-decoration: none;
 }
 
 .form input[type="submit"]:hover {

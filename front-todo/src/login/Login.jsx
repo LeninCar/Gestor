@@ -1,6 +1,7 @@
 import { BiEnvelope, BiLockAlt } from 'react-icons/bi';
 import ReCAPTCHA from "react-google-recaptcha";
 import './Login.css';
+import { Link } from 'react-router-dom';
 
 function Login() {
   return (
@@ -37,7 +38,7 @@ function Login() {
             />
             <br />
             {/* {error && <p style={{ color: "red" }}>{error}</p>} */}
-            <input type="submit" value="Iniciar" />
+            <Link to={`/`} className='link' value="Iniciar" > Iniciar </Link>
           </form>
         </div>
       </section>
