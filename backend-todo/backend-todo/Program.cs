@@ -20,6 +20,8 @@ builder.Services.AddDbContext<TareasDbContext>(options =>
 
 // interface
 builder.Services.AddScoped<ITareaService, TareaService>();
+builder.Services.AddScoped<ICategoriaService, CategoriaService>();
+
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
