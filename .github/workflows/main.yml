@@ -27,7 +27,7 @@ jobs:
       - name: Run SonarCloud analysis
         uses: sonarsource/sonarcloud-github-action@master
         with:
-          projectBaseDir: ../../
+          projectBaseDir: .
           args: >
             -Dsonar.organization=lenincar
             -Dsonar.projectKey=LeninCar_Gestor
