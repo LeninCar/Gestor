@@ -1,5 +1,5 @@
 
-name: Run Tests
+name: Run Tests and SonarCloud Analysis
 
 on:
   push:
@@ -23,3 +23,8 @@ jobs:
         run: |
           npm install
           npm test
+          
+      - name: Run SonarCloud analysis
+        uses: sonarsource/sonarcloud-github-action@v1
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
