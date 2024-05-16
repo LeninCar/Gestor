@@ -13,13 +13,14 @@ COPY ["backend-todo/backend-todo.csproj", "backend-todo/"]
 RUN dotnet restore "./backend-todo/backend-todo.csproj"
 COPY ./backend-todo ./backend-todo
 WORKDIR "/src/backend-todo"
-RUN dotnet build "./backend-todo.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./backend-todo.csproj" -c "$BUILD_CONFIGURATION" -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./backend-todo.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./backend-todo.csproj" -c "$BUILD_CONFIGURATION" -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+USER nonroot
 ENTRYPOINT ["dotnet", "backend-todo.dll"]
