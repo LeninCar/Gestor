@@ -54,6 +54,6 @@ jobs:
           args: >
             -Dsonar.organization=lenincar
             -Dsonar.projectKey=LeninCar_Gestor
-            -Dsonar.coverageReportPaths=./backend-todo/backend-todo/Test/coverage.opencover.xml
+            -Dsonar.coverageReportPaths=./backend-todo/backend-todo/TestResults/coverage.opencover.xml
         env:
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
