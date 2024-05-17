@@ -43,8 +43,9 @@ jobs:
           dotnet-version: '3.1.x'
 
       - name: Run tests and collect coverage
+        working-directory: ./backend-todo/backend-todo
         run: |
-          dotnet test --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./TestResults/coverage.opencover.xml
+            dotnet test --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./TestResults/coverage.opencover.xml
 
       - name: SonarScanner for .NET
         uses: sonarsource/sonarcloud-github-action@master
