@@ -45,7 +45,7 @@ jobs:
       - name: Run tests and collect coverage
         working-directory: ./backend-todo/backend-todo
         run: |
-          dotnet test --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./TestResults/coverage.opencover.xml
+          dotnet test --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./Test/coverage.opencover.xml
 
       - name: SonarScanner for .NET
         uses: sonarsource/sonarcloud-github-action@master
@@ -54,6 +54,6 @@ jobs:
           args: >
             -Dsonar.organization=lenincar
             -Dsonar.projectKey=LeninCar_Gestor
-            -Dsonar.coverageReportPaths=./backend-todo/backend-todo/TestResults/coverage.opencover.xml
+            -Dsonar.coverageReportPaths=./backend-todo/backend-todo/Test/coverage.opencover.xml
         env:
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
