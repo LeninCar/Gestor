@@ -24,7 +24,7 @@ jobs:
         working-directory: ./frontend 
         run: |
           npm install
-          npm test -- --coverage
+          npm test -- --coverage --watchAll=false
 
   sonarcloud:
     runs-on: ubuntu-latest
@@ -46,15 +46,16 @@ jobs:
       #   working-directory: ./backend-todo/backend-todo
       #   run: |
       #     dotnet test --no-build --collect:"XPlat Code Coverage" /p:CoverletOutput=./TestResults/coverage.opencover.xml /p:CoverletOutputFormat=opencover
+      
+      # -Dsonar.coverageReportPaths=./backend-todo/backend-todo/TestResults/coverage.opencover.xml
 
-      - name: SonarScanner for .NET
+      - name: SonarScanner for JS
         uses: sonarsource/sonarcloud-github-action@master
         with:
           projectBaseDir: .
           args: >
             -Dsonar.organization=lenincar
             -Dsonar.projectKey=LeninCar_Gestor
-            # -Dsonar.coverageReportPaths=./backend-todo/backend-todo/TestResults/coverage.opencover.xml
             -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
         env:
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
