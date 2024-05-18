@@ -29,7 +29,7 @@ jobs:
       - name: SonarScanner for JS
         uses: sonarsource/sonarcloud-github-action@master
         with:
-          projectBaseDir: frontend
+          projectBaseDir: .
         env:
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
