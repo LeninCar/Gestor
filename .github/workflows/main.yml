@@ -25,9 +25,6 @@ jobs:
         run: |
           npm install
           npm test -- --coverage
-          # Move coverage report to a common location
-          mkdir -p coverage/frontend
-          mv coverage/lcov-report/* coverage/frontend/
 
   sonarcloud:
     runs-on: ubuntu-latest
@@ -45,13 +42,6 @@ jobs:
         with:
           dotnet-version: '3.1.x'
 
-      - name: Prepare frontend coverage for SonarCloud
-        run: |
-          # Convert lcov to cobertura format
-          npm install -g lcov-to-cobertura-xml
-          lcov-to-cobertura-xml coverage/frontend/lcov.info > coverage/frontend/coverage.cobertura.xml
-  
-
       # - name: Run tests and collect coverage
       #   working-directory: ./backend-todo/backend-todo
       #   run: |
@@ -65,6 +55,6 @@ jobs:
             -Dsonar.organization=lenincar
             -Dsonar.projectKey=LeninCar_Gestor
             # -Dsonar.coverageReportPaths=./backend-todo/backend-todo/TestResults/coverage.opencover.xml
-            -Dsonar.javascript.lcov.reportPaths=./frontend/coverage/frontend/lcov.info
+            -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
         env:
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
