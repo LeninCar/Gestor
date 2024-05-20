@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -25,36 +27,21 @@ jobs:
           npm install
           npm test -- --coverage --watchAll=false
 
-  backTest-sonarCloud:
-    runs-on: ubuntu-latest
-    needs: frontTest-sonarCloud
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       - name: Set up .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: '8.x'
 
       - name: Run tests and collect coverage
         working-directory: ./backend-todo
         run: |
-          dotnet test ./TestGestor/TestGestor.csproj --collect:"XPlat Code Coverage" /p:CoverletOutput=./TestResults/coverage.opencover.xml /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-          
-
-  sonarCloud:
-    runs-on: ubuntu-latest
-    needs: [frontTest-sonarCloud, backTest-sonarCloud]
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: SonarCloud coverage
+            dotnet test ./TestGestor/TestGestor.csproj --collect:"XPlat Code Coverage" /p:CoverletOutput=./TestResults/coverage.opencover.xml /p:CoverletOutputFormat=opencover /p:CollectCoverage=true 
+      
+      - name: SonarCloud coverage for backend 
         uses: sonarsource/sonarcloud-github-action@master
         with:
           projectBaseDir: .
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      
