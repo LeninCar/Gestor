@@ -1,14 +1,19 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { TodoAdd } from './components/TodoAdd';
-import { TodoList } from './components/TodoList';
-import { useTodo } from './hooks/useTodo';
 import Login from './login/Login';
 import task from "./services/task";
 import { useState, useEffect } from 'react';
+import { OverlayTrigger, Tooltip, Modal } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPlay,
+  faCheck,
+} from "@fortawesome/free-solid-svg-icons";
+import Swal from 'sweetalert2';
+
 function App() {
-  const serviceTasks=new task()
+  const serviceTasks = new task()
   const [dataTask, setDataTask] = useState([])
+  const fechaHoy = new Date
   useEffect(() => {
     async function fetchData() {
       await serviceTasks.getTareas().then((data) => {
@@ -19,91 +24,173 @@ function App() {
 
     fetchData();
   }
-  , []);
-  function Table(data){
-    return dataTask.map((data,index) =>{
-    <tr key={index}>
-            <td>{index}</td>
-            <td>{data.categoriaNombre}</td>
-            <td>{data.descripcion}</td>
-            <td>{data.estado}</td>
-    </tr>
-    })
-  
+    , []);
+
+  const IniciarTarea = (id,tarea) => {
+    async function fetchData() {
+      await serviceTasks.putTareaEstado(id,tarea).then((data) => {
+        console.log(data);
+      });
     }
-  const {
-    todos,
-    todosCount,
-    pendingTodosCount,
-    handleNewTodo,
-    handleDeleteTodo,
-    handleCompleteTodo,
-    handleUpdateTodo,
-  } = useTodo();
+    try {
+      fetchData();
+      window.location.reload()
+
+
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Error en el Servidor!",
+      });
+    } finally {
+      serviceTasks.getTareas().then((data) => {
+        setDataTask(data);
+      })
+    }
+  }
+  const TerminarTarea = (id) => {
+    async function fetchData() {
+      await serviceTasks.deleteTarea(id).then((data) => {
+        console.log(data);
+      });
+    }
+    try {
+      fetchData();
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Tarea Terminada con Exito",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Error en el Servidor!",
+      });
+    } finally {
+      async function fetchData2() {
+        serviceTasks.getTareas().then((data) => {
+          setDataTask(data);
+        });
+      }
+      try {
+        fetchData2();
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Error en el Servidor!",
+        });
+      } finally{
+        fetchData2();
+      }
+
+    }
+  }
+  const Table=()=> {
+    return dataTask.map((item, index) => (
+      <tr key={index}>
+        <td>{index}</td>
+        <td>
+          <OverlayTrigger
+            overlay={
+              <Tooltip id={`tittle-tooltip-${index}`} style={{ color: "#333", fontFamily: "Arial, sans-serif" }
+              }>{item.descripcion}</Tooltip>}>
+            <a>{item.titulo}</a>
+          </OverlayTrigger></td>
+        <td>{item.estado}</td>
+        <td className="button-container">
+
+          <OverlayTrigger
+            overlay={
+              <Tooltip id={`matricular-tooltip-${index}`} style={{ color: "#333", fontFamily: "Arial, sans-serif" }}>
+                Iniciar Tarea
+              </Tooltip>
+            }
+          >
+            <a
+              onClick={() => { IniciarTarea(item.id, item) }}
+              href="#"
+              className="btn"
+              style={{ color: "#05080a" }}
+            >
+              <FontAwesomeIcon icon={faPlay} />
+            </a>
+          </OverlayTrigger>
+          <OverlayTrigger
+            overlay={<Tooltip id={`edit-tooltip-${index}`} style={{ color: "#333", fontFamily: "Arial, sans-serif" }}>
+              Finalizar Tarea
+            </Tooltip>}
+          >
+            <a
+              onClick={() => { TerminarTarea(item.id)}}
+              href="#"
+              className="btn"
+              style={{ paddingLeft: '20px', color: "#9fdfbf" }}
+            >
+              <FontAwesomeIcon icon={faCheck} />
+            </a>
+          </OverlayTrigger>
+        </td>
+      </tr>
+    ));
+  }
+  const obtenerNombreMes = (fecha) => {
+    return fecha.toLocaleDateString('es-ES', { month: 'long' }).toUpperCase();; // Ajusta el idioma según lo necesites
+  };
+  const obtenerNombreDiaSemana = (fecha) => {
+    return fecha.toLocaleDateString('es-ES', { weekday: 'long' }).toUpperCase(); // Ajusta el idioma según lo necesites
+  };
 
   return (
-    <Router>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <TodoApp
-              todos={dataTask}
-              todosCount={todosCount}
-              pendingTodosCount={pendingTodosCount}
-              handleNewTodo={handleNewTodo}
-              handleDeleteTodo={handleDeleteTodo}
-              handleCompleteTodo={handleCompleteTodo}
-              handleUpdateTodo={handleUpdateTodo}
-            />
-          }
-          
+    <div class="container">
+      <div class="card">
+        <div class="top-part">
+          <div class="saturday">
+            <h5 class="setdate">{obtenerNombreDiaSemana(fechaHoy) + ", " + fechaHoy.getDate() + " DE " + obtenerNombreMes(fechaHoy)}</h5>
+            <br />
+          </div>
+          <h6>Incomplete Tasks: 1</h6>
+          <h6 class="settime">------------------------------------------------------------------------------</h6>
+          <h6>Complete Tasks: 0</h6>
+          <h6 class="settime">------------------------------------------------------------------------------</h6>
+        </div>
+        <div class="addtask">
 
+          <textarea placeholder="Enter a task...">
 
-        />
-        
-        <Route path='/login'element={<Login/>}> </Route>
-      </Routes>
-    </Router>
-  );
-}
-
-function TodoApp({
-  todos,
-  todosCount,
-  pendingTodosCount,
-  handleNewTodo,
-  handleDeleteTodo,
-  handleCompleteTodo,
-  handleUpdateTodo,
-}) {
-  return (
-    <div className='card-to-do'>
-      <h1>Lista de tareas</h1>
-      <div className='counter-todos'>
-        <h3>
-          N° Tareas: <span>{todosCount}</span>
-        </h3>
-        <h3>
-          Pendientes: <span>{pendingTodosCount}</span>
-        </h3>
+          </textarea>
+          <button>Add task</button>
+        </div>
       </div>
+      <div class="table-card">
 
-      <div className='add-todo'>
-        <h3>Agregar Tarea</h3>
-        <TodoAdd handleNewTodo={handleNewTodo} />
+        <table className="table">
+          <thead>
+            <tr className="border-bottom">
+              <th>
+                <span className="ml-2">#</span>
+              </th>
+              <th>
+                <span className="ml-2">Tarea</span>
+              </th>
+              <th>
+                <span className="ml-4">Estado</span>
+              </th>
+              <th>
+                <span className="ml-4">Accion</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {Table()}
+          </tbody>
+        </table>
       </div>
-      <div className='list-todo'>
-        <TodoList
-          todos={todos}
-          handleUpdateTodo={handleUpdateTodo}
-          handleDeleteTodo={handleDeleteTodo}
-          handleCompleteTodo={handleCompleteTodo}
-        />
-      </div>
-
     </div>
   );
 }
-
 export default App;
