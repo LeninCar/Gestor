@@ -1,8 +1,7 @@
-using System.Runtime.Serialization;
 using backend_todo.Models;
-using Xunit;
+using System.Runtime.Serialization;
 
-namespace backend_todo.Tests
+namespace TestGestor
 {
     public class EstadoTareaTests
     {
