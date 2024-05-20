@@ -8,6 +8,7 @@ namespace backend_todo.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CategoriasController : ControllerBase
     {
         private readonly ICategoriaService _categoriaService;
