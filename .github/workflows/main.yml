@@ -33,15 +33,22 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Run tests and collect coverage
+        id: backend-tests
         working-directory: ./backend-todo
         run: |
-            dotnet test ./TestGestor/TestGestor.csproj --collect:"XPlat Code Coverage" /p:CoverletOutput=./TestResults/coverage.opencover.xml /p:CoverletOutputFormat=opencover /p:CollectCoverage=true 
-      
+          dotnet test ./TestGestor/TestGestor.csproj --collect:"XPlat Code Coverage" /p:CoverletOutput=./TestResults/coverage.opencover.xml /p:CoverletOutputFormat=opencover /p:CollectCoverage=true 
+          echo "::set-output name=failed_tests::$(dotnet test ./TestGestor/TestGestor.csproj --filter FullyQualifiedName~TestClass#)"
+
       - name: SonarCloud coverage for backend 
+        if: steps.backend-tests.outputs.failed_tests == ''
         uses: sonarsource/sonarcloud-github-action@master
         with:
           projectBaseDir: .
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-      
+      - name: Prevent merge if tests fail
+        if: steps.backend-tests.outputs.failed_tests != ''
+        run: |
+          echo "Tests failed. Exiting."
+          exit 1
