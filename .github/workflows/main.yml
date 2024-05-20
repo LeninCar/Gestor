@@ -51,10 +51,10 @@ jobs:
           dotnet-version: '3.1.x'
 
       - name: Run tests and collect coverage
-        working-directory: ./backend-todo/backend-todo
+        working-directory: ./backend-todo
         run: |
-          dotnet test --no-build --collect:"XPlat Code Coverage" /p:CoverletOutput=./TestResults/coverage.opencover.xml /p:CoverletOutputFormat=opencover
-
+          dotnet test --collect:"XPlat Code Coverage" .\TestGestor\TestGestor.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+      
       - name: SonarCloud coverage for backend 
         uses: sonarsource/sonarcloud-github-action@master
         with:
