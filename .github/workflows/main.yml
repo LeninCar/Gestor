@@ -53,7 +53,7 @@ jobs:
       - name: Run tests and collect coverage
         working-directory: ./backend-todo
         run: |
-            dotnet test ./TestGestor/TestGestor.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+            dotnet test ./TestGestor/TestGestor.csproj /p:CoverletOutput=./TestResults/coverage.opencover.xml /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
       
       - name: SonarCloud coverage for backend 
         uses: sonarsource/sonarcloud-github-action@master
