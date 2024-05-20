@@ -20,7 +20,7 @@ jobs:
           node-version: 18
 
       - name: Install dependencies and run tests
-        working-directory: ./frontend
+        working-directory: ./frontend 
         run: |
           npm install
           npm test -- --coverage --watchAll=false
@@ -42,13 +42,7 @@ jobs:
         working-directory: ./backend-todo
         run: |
           dotnet test ./TestGestor/TestGestor.csproj --collect:"XPlat Code Coverage" /p:CoverletOutput=./TestResults/coverage.opencover.xml /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-
-      - name: Install ReportGenerator
-        run: dotnet tool install -g dotnet-reportgenerator-globaltool
-
-      - name: Generate coverage report
-        run: |
-          reportgenerator -reports:./backend-todo/TestGestor/TestResults/coverage.opencover.xml -targetdir:./backend-todo/TestGestor/TestResults/coverage -reporttypes:HtmlInline_AzurePipelines
+          
 
   sonarCloud:
     runs-on: ubuntu-latest
