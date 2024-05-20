@@ -26,9 +26,9 @@ function App() {
   }
     , []);
 
-  const IniciarTarea = (id,tarea) => {
+  const IniciarTarea = (id, tarea) => {
     async function fetchData() {
-      await serviceTasks.putTareaEstado(id,tarea).then((data) => {
+      await serviceTasks.putTareaEstado(id, tarea).then((data) => {
         console.log(data);
       });
     }
@@ -49,7 +49,7 @@ function App() {
       })
     }
   }
-  const TerminarTarea = (id) => {
+  const TerminarTarea = async (id) => {
     async function fetchData() {
       await serviceTasks.deleteTarea(id).then((data) => {
         console.log(data);
@@ -57,6 +57,9 @@ function App() {
     }
     try {
       fetchData();
+      await serviceTasks.getTareas().then((data) => {
+        setDataTask(data);
+      })
       Swal.fire({
         position: "center",
         icon: "success",
@@ -71,26 +74,12 @@ function App() {
         text: "Error en el Servidor!",
       });
     } finally {
-      async function fetchData2() {
-        serviceTasks.getTareas().then((data) => {
-          setDataTask(data);
-        });
-      }
-      try {
-        fetchData2();
-      } catch (error) {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Error en el Servidor!",
-        });
-      } finally{
-        fetchData2();
-      }
-
+      await serviceTasks.getTareas().then((data) => {
+        setDataTask(data);
+      })
     }
   }
-  const Table=()=> {
+  const Table = () => {
     return dataTask.map((item, index) => (
       <tr key={index}>
         <td>{index}</td>
@@ -126,7 +115,7 @@ function App() {
             </Tooltip>}
           >
             <a
-              onClick={() => { TerminarTarea(item.id)}}
+              onClick={() => { TerminarTarea(item.id) }}
               href="#"
               className="btn"
               style={{ paddingLeft: '20px', color: "#9fdfbf" }}
