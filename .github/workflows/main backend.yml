@@ -1,11 +1,11 @@
 name: Run Tests and SonarCloud Analysis backend
 
 on:
-  pull_request:
+  push:
     branches:
       - master
       - feature/lenin
-      - develop
+      - develop #Se agrego la rama develop
 
 jobs:
   backendTest-sonarCloud:
