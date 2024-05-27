@@ -3,7 +3,7 @@ on:
     branches:
       - master
       - feature/lenin
-      - feature/develop
+      - feature/agrace
 
 jobs:
   backendTest-sonarCloud:
