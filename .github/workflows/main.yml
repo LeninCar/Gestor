@@ -1,9 +1,10 @@
-name: Run Tests and SonarCloud Analysis frontend
+name: Run Tests and SonarCloud Analysis
 
 on:
   push:
     branches:
-      - develop
+      - master
+      - feature/lenin
 
 jobs:
   frontTest-sonarCloud:
@@ -26,25 +27,10 @@ jobs:
           npm install
           npm test -- --coverage --watchAll=false
 
-      # - name: SonarCloud coverage for frontend
-      #   uses: sonarsource/sonarcloud-github-action@master
-      #   with:
-      #     projectBaseDir: .
-      #   env:
-      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
       - name: Set up .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "3.1.x"
-
-      # - name: Restore dependencies
-      #   run: dotnet restore ./backend-todo
 
       - name: Run tests and collect coverage
         working-directory: ./backend-todo
