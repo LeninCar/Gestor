@@ -26,12 +26,12 @@ jobs:
           npm install
           npm test -- --coverage --watchAll=false
 
-      - name: SonarCloud coverage for frontend
-        uses: sonarsource/sonarcloud-github-action@master
-        with:
-          projectBaseDir: .
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      # - name: SonarCloud coverage for frontend
+      #   uses: sonarsource/sonarcloud-github-action@master
+      #   with:
+      #     projectBaseDir: .
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: Checkout code
         uses: actions/checkout@v4
