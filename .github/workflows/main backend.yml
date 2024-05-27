@@ -10,10 +10,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Set up .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "3.1.x"
+
+      - name: Restore dependencies
+        working-directory: ./backend-todo
+        run: dotnet restore
 
       - name: Run tests and collect coverage
         working-directory: ./backend-todo
