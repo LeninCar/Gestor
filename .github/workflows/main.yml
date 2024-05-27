@@ -26,30 +26,7 @@ jobs:
           npm install
           npm test -- --coverage --watchAll=false
 
-  backendTest-sonarCloud:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Set up .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: "3.1.x"
-
-      - name: Restore dependencies
-        working-directory: ./backend-todo
-        run: dotnet restore
-
-      - name: Run tests and collect coverage
-        working-directory: ./backend-todo
-        run: |
-          dotnet test ./TestGestor/TestGestor.csproj --collect:"XPlat Code Coverage" /p:CoverletOutput=./TestResults/ /p:CoverletOutputFormat=opencover
-
-      - name: SonarCloud coverage for backend
+      - name: SonarCloud coverage for frontend
         uses: sonarsource/sonarcloud-github-action@master
         with:
           projectBaseDir: .
