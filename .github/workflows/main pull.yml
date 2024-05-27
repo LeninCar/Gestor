@@ -1,0 +1,12 @@
+name: Run Tests and SonarCloud Analysis to master
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  master-sonarCloud:
+    runs-on: ubuntu-latest
+
+    steps:

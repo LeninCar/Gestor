@@ -2,7 +2,6 @@
 using backend_todo.Interface;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Linq;
 using System;
@@ -26,7 +25,11 @@ namespace backend_todo.Repositories
         {
             try
             {
-                TEntity entidad = await _aplicationDbContext.Set<TEntity>().FirstOrDefaultAsync(filtro);
+                TEntity? entidad = await _aplicationDbContext.Set<TEntity>().FirstOrDefaultAsync(filtro);
+                if (entidad == null)
+                {
+                    throw new InvalidOperationException("Entidad no encontrada");
+                }
                 return entidad;
             }
             catch
@@ -77,13 +80,13 @@ namespace backend_todo.Repositories
             }
         }
 
-        public async Task<IQueryable<TEntity>> Consultar(Expression<Func<TEntity, bool>> filtro = null)
+        public async Task<IQueryable<TEntity>> Consultar(Expression<Func<TEntity, bool>>? filtro = null)
         {
             IQueryable<TEntity> queryEntidad = filtro == null ? _aplicationDbContext.Set<TEntity>() : _aplicationDbContext.Set<TEntity>().Where(filtro);
-            return queryEntidad;
+            return await Task.FromResult(queryEntidad);
         }
 
-        public IQueryable<TEntity> ConsultarAsQueryable(Expression<Func<TEntity, bool>> filtro = null)
+        public IQueryable<TEntity> ConsultarAsQueryable(Expression<Func<TEntity, bool>>? filtro = null)
         {
             IQueryable<TEntity> queryEntidad = filtro == null ? _aplicationDbContext.Set<TEntity>() : _aplicationDbContext.Set<TEntity>().Where(filtro);
             return queryEntidad;

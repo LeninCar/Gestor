@@ -1,4 +1,4 @@
-name: Run Tests and SonarCloud Analysis
+name: Run Tests and SonarCloud Analysis frontend
 
 on:
   push:
