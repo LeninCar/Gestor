@@ -5,6 +5,7 @@ on:
     branches:
       - master
       - feature/lenin
+      - develop
 
 jobs:
   frontTest-sonarCloud:
