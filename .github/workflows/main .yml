@@ -1,4 +1,4 @@
-name: Run Tests and SonarCloud Analysis frontend
+name: Run Tests and SonarCloud Analysis
 
 on:
   push:
@@ -38,7 +38,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up .NET
         uses: actions/setup-dotnet@v4
