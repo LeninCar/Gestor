@@ -1,0 +1,35 @@
+on:
+  pull_request:
+    branches:
+      - master
+      - feature/lenin
+      - feature/develop
+
+jobs:
+  backendTest-sonarCloud:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "3.1.x"
+
+      - name: Restore dependencies
+        run: dotnet restore ./backend-todo
+
+      - name: Run tests and collect coverage
+        working-directory: ./backend-todo
+        run: |
+          dotnet test ./TestGestor/TestGestor.csproj --collect:"XPlat Code Coverage" /p:CoverletOutput=./TestResults/coverage.opencover.xml /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+
+      - name: SonarCloud coverage for backend
+        uses: sonarsource/sonarcloud-github-action@master
+        with:
+          projectBaseDir: .
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
