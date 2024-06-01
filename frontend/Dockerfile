@@ -4,18 +4,23 @@ WORKDIR /app
 
 RUN addgroup -S nonroot \
     && adduser -S nonroot -G nonroot
+#
 
-COPY package*.json ./
+#USER nonroot
+
+COPY --chown=nonroot:nonroot package*.json ./
 
 RUN npm install --ignore-scripts
 
-COPY src/ ./src/
-COPY public/ ./public/
+COPY --chown=nonroot:nonroot src/ ./src/
+COPY --chown=nonroot:nonroot public/ ./public/
 
-RUN npm run build
+#USER nonroot
+#RUN --chown=nonroot:nonroot npm run build
+RUN  npm run build
 
 EXPOSE 3000
 
-USER nonroot
+#USER nonroot
 
 CMD ["npm", "start"]
