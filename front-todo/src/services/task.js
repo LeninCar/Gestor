@@ -49,6 +49,16 @@ class ServiceTasks {
                 .catch((error) => reject(error))
         });
     };
+    postCategoria = (categoria) => {
+        return new Promise((resolve, reject) => {
+            axios.post(`https://localhost:7293/api/Categorias`
+                , categoria)
+                .then((Response) => {
+                    resolve(Response.data)
+                })
+                .catch((error) => reject(error))
+        });
+    };
     deleteTarea = (id) => {
         return new Promise((resolve, reject) => {
             axios.delete(`https://localhost:7293/api/Tarea/${id}`)

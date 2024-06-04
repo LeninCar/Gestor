@@ -33,7 +33,6 @@ function App() {
   const handleOptionClick = (option) => {
     setSelectedOptionCategoria(option.nombre);
     setSelectedOptionCategoriaId(option.id);
-
     console.log(option)
     setIsOpen(false);
   };
@@ -61,17 +60,50 @@ function App() {
 
   useEffect(() => {
     async function fetchData() {
-      await serviceTasks.getTareas().then((data) => {
-        setDataTask(data);
-      });
-      await serviceTasks.getCategorias().then((data) => {
-        setCategorias(data);
-      });
+      try {
+        const tareas = await serviceTasks.getTareas();
+        setDataTask(tareas);
+
+        const categorias = await serviceTasks.getCategorias();
+        console.log('Current categories:', categorias);
+
+        const CategoriasBase = [
+          { nombre: "BackEnd" },
+          { nombre: "FrontEnd" }
+        ];
+
+        if (categorias.length === 0) {
+          console.log('No categories found, adding base categories...');
+
+          const createPromises = CategoriasBase.map(async (categoria) => {
+            await serviceTasks.postCategoria(categoria);
+            console.log(`Added category: ${categoria.nombre}`);
+          });
+
+          // Esperar a que todas las promesas se resuelvan
+          await Promise.all(createPromises);
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        await getCat();
+      }
+    }
+
+    async function getCat() {
+      try {
+        const categorias = await serviceTasks.getCategorias();
+        const uniqueCategorias = Array.from(new Map(categorias.map(item => [item.nombre, item])).values());
+        setCategorias(uniqueCategorias);
+        console.log('Fetched categories after update:', categorias);
+      } catch (error) {
+        console.error(error);
+      }
     }
 
     fetchData();
-  }
-    , []);
+  }, []); 
+
 
   const IniciarTarea = async (id, tarea) => {
     async function fetchData() {
@@ -201,9 +233,9 @@ function App() {
                 {item.descripcion}</Tooltip>}>
             <a>{item.titulo}</a>
           </OverlayTrigger></td>
-        <td>{item.estado === 'Pendiente' ? 
-        <span style={{ color: "black", font:'revert',fontSize:'18px'}}>{item.estado}</span> : 
-        <span style={{ color: "lightgray", font:'icon',fontSize:'18px' }}>{item.estado}</span>}</td>
+        <td>{item.estado === 'Pendiente' ?
+          <span style={{ color: "black", font: 'revert', fontSize: '18px' }}>{item.estado}</span> :
+          <span style={{ color: "lightgray", font: 'icon', fontSize: '18px' }}>{item.estado}</span>}</td>
         <td className="button-container">
 
           <OverlayTrigger
