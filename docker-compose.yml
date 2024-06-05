@@ -3,7 +3,7 @@ version: "3"
 services:
   frontend:
     build:
-      context: ./frontend
+      context: ./front-todo
       dockerfile: Dockerfile
     restart: always
     ports:
