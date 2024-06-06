@@ -11,7 +11,7 @@ services:
 
   backend:
     build:
-      context: ./backend/backend-todo
+      context: ./backend-todo
       dockerfile: Dockerfile
     restart: always
     ports:
