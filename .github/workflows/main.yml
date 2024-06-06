@@ -30,12 +30,12 @@ jobs:
       - name: Set up .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '3.1.x'
+          dotnet-version: '8.0.x'
 
       - name: Run tests and collect coverage
         working-directory: ./backend-todo
         run: |
-            dotnet test ./TestGestor/TestGestor.csproj --collect:"XPlat Code Coverage" /p:CoverletOutput=./TestResults/coverage.opencover.xml /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+            dotnet test ./TestGestor/TestGestor.csproj --collect:"XPlat Code Coverage" /p:CoverletOutput=./TestResults/coverage.opencover.xml /p:CoverletOutputFormat=opencover /p:CollectCoverage=true 
       
       - name: SonarCloud coverage for backend 
         uses: sonarsource/sonarcloud-github-action@master

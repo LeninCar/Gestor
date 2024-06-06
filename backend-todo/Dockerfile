@@ -1,6 +1,10 @@
 #See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+
+# RUN addgroup -S nonroot \
+#     && adduser -S nonroot -G nonroot
+    
 USER app
 WORKDIR /app
 EXPOSE 8080
@@ -11,7 +15,7 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["backend-todo/backend-todo.csproj", "backend-todo/"]
 RUN dotnet restore "./backend-todo/backend-todo.csproj"
-COPY ./backend-todo ./backend-todo
+COPY ./backend-todo/ ./backend-todo/
 WORKDIR "/src/backend-todo"
 RUN dotnet build "./backend-todo.csproj" -c "$BUILD_CONFIGURATION" -o /app/build
 
@@ -22,5 +26,5 @@ RUN dotnet publish "./backend-todo.csproj" -c "$BUILD_CONFIGURATION" -o /app/pub
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-USER nonroot
+#USER nonroot
 ENTRYPOINT ["dotnet", "backend-todo.dll"]

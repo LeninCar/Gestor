@@ -246,6 +246,26 @@ namespace backend_todo.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categorias");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FechaCreacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Nombre = "Personal"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            FechaCreacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Nombre = "Trabajo"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            FechaCreacion = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Nombre = "Estudio"
+                        });
                 });
 
             modelBuilder.Entity("backend_todo.Models.Tarea", b =>
