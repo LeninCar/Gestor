@@ -1,0 +1,311 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+
+* {
+	margin: 0;
+	padding: 0
+}
+
+.container {
+	min-height: 100vh;
+	background-color: #e2e5e6;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.card {
+	height: auto;
+	width: 950px;
+	background-color: #999aa4;
+	border-radius: 10px;
+	padding: 10px 20px;
+	box-sizing: border-box;
+	transition: transform 1.5s, box-shadow 0.5s;
+	font-family: 'Poppins', sans-serif
+}
+
+.card:hover {
+	transform: translateY(-10px);
+	box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+}
+
+.table-card {
+	height: auto;
+	width: 450px;
+	background-color: #495981;
+	border-radius: 10px;
+	padding: 20px 20px;
+	box-sizing: border-box;
+	font-family: 'Poppins', sans-serif
+}
+
+.top-part {
+	justify-content: center;
+	display: flex;
+	flex-direction: column;
+	margin-top: 20px;
+	color: #fff;
+	font-size: 20px;
+	font-family: 'Poppins', sans-serif
+}
+
+.saturday p {
+	font-size: 10px
+}
+
+.saturday h5 {
+	letter-spacing: 1px
+}
+
+.saturday h6 {
+	letter-spacing: 1px;
+
+}
+
+.tasks {
+	display: flex;
+	gap: 25px
+}
+
+.strike-none {
+	text-decoration: none
+}
+
+.tasks h6 {
+	letter-spacing: 1px
+}
+
+.addtask {
+	display: flex;
+	gap: 10px;
+	margin-top: 20px
+}
+
+.addtask textarea {
+	resize: none;
+	margin-top: 10px;
+	height: 40px;
+	width: 50%;
+	border-radius: 5px;
+	border: 1px solid pink;
+	padding: 5px;
+	box-sizing: border-box;
+	font-size: 14px;
+	outline: 0;
+	padding-right: 20px;
+	font-family: 'Poppins', sans-serif
+}
+
+.addtask button {
+	height: 40px;
+	width: 90px;
+	margin-top: 10px;
+	font-size: 12px;
+	color: #fff;
+	background-color: #777777;
+	border: none;
+	outline: 0;
+	border-radius: 7px;
+	cursor: pointer;
+	transition: all 0.5s
+}
+.addtask input {
+	height: 40px;
+	width: 165px;
+	margin-top: 10px;
+	color: #fff;
+	background-color: #777777;
+	border: none;
+	outline: 0;
+	border-radius: 7px;
+	cursor: pointer;
+	transition: all 0.5s
+}
+
+.addtask button:hover {
+	background-color: #1b99bb
+}
+
+.added_tasks {
+	list-style: none;
+	color: #fff;
+	margin-top: 20px;
+	flex-direction: row;
+}
+
+.added_tasks li {
+	display: flex;
+	justify-content: space-between;
+	border-top: 3px solid #636872;
+	padding: 10px 0px
+}
+
+.content {
+	display: flex;
+	justify-content: center;
+	align-items: center
+}
+
+.content span {
+	height: 25px;
+	width: 25px;
+	background-color: #3a3f49;
+	border: 2px solid #636872;
+	border-radius: 50%;
+	margin-right: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	transition: all 0.5s
+}
+
+.content span i {
+	color: #6b717a
+}
+
+.d-none {
+	display: none
+}
+
+.content p {
+	font-size: 12px
+}
+
+.added_tasks li span:nth-child(2) {
+	height: 25px;
+	width: 25px;
+	background-color: #3a3f49;
+	border: 2px solid #636872;
+	border-radius: 50%;
+	margin-right: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #636872;
+	cursor: pointer;
+	transition: all 0.5s
+}
+
+.added_tasks li span:nth-child(2):hover {
+	color: red;
+	border: 2px solid red
+}
+
+
+.card-1 {
+
+	border: none;
+	border-radius: 10px;
+	width: 100%;
+	background-color: #fff;
+
+}
+
+
+.icons i {
+
+	margin-left: 20px;
+
+}
+
+.table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.table th {
+	padding: 12px 15px;
+	text-align: left;
+	font-size: 19px;
+}
+
+.table td {
+	padding: 12px 15px;
+	text-align: left;
+	transition: transform 0.4s, box-shadow 0.5s;
+}
+
+
+.table td:hover {
+	transform: translateY(-10px);
+	box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+}
+
+
+.table th {
+	background-color: #f2f2f2;
+}
+
+
+
+.table tbody tr:hover {
+	background-color: #eaeaea;
+}
+
+.table-card {
+	width: 100%;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.table-responsive {
+	overflow-x: auto;
+}
+
+.dropdown{
+    display: inline-block;
+}
+.dropdown button{
+    background-color: hsl(0, 0%, 57%);
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+}
+.dropdown a{
+    display: block;
+    color: black;
+    text-decoration: none;
+    padding: 10px 15px;
+}
+.dropdown .content{
+    display: none;
+    position: absolute;
+    background-color: hsl(0, 0%, 95%);
+    min-width: 100px;
+    box-shadow: 2px 2px 5px hsla(0, 0%, 0%, 0.8);
+}
+.dropdown:hover .content{
+    display: block;
+}
+.dropdown:hover button{
+    background-color: hsl(0, 0%, 51%);
+}
+.dropdown a:hover{
+    background-color: hsl(0, 0%, 53%);
+}
+.custom-date-input {
+	padding: 10px;
+	border: 2px solid #ededed;
+	border-radius: 10px;
+	font-size: 12px;
+	transition: all 0.3s ease;
+	color: #333;
+	background-color: #cccecf;
+	width: 70%;
+	box-sizing: border-box;
+  }
+  
+  .custom-date-input:focus {
+	border-color: #67c0d5e6;
+	box-shadow: 0 0 5px rgb(167, 245, 253);
+	outline: none;
+	background-color: #606060;
+  }
+  
+  .custom-date-input::placeholder {
+	color: #aaa;
+	font-style: italic;
+  }

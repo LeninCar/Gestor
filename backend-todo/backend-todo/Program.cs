@@ -11,16 +11,32 @@ using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 // Add services to the container.
 
 builder.Services.AddDbContext<TareasDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("TareasDbContext"));
+    String connectionString = "Server=localhost;Database=todolistdev;User=root;Password=;";
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+
 });
 
 // interface
 builder.Services.AddScoped<ITareaService, TareaService>();
+builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.AllowAnyOrigin()
+                                  .AllowAnyMethod()
+                                  .AllowAnyHeader();
+                      });
+});
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 //automapper
@@ -45,9 +61,13 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors(MyAllowSpecificOrigins);
+
 app.MapGroup("/itentity").MapIdentityApi<ApplicationUser>();
 
 app.UseAuthorization();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.MapControllers();
 
