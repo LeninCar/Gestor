@@ -10,4 +10,5 @@ export default {
   },
   collectCoverage: true, // Habilita la recolección de cobertura
   coverageDirectory: 'coverage', // Directorio para almacenar los informes de cobertura
+  testEnvironment: 'jsdom',
 };
