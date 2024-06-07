@@ -2,8 +2,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import App from '../App';
-import Login from '../login/Login';
+import App from './App';
+import Login from './login/Login';
 
 test('renders app page when navigating to /app', () => {
   window.history.pushState({}, 'App Page', '/app');
